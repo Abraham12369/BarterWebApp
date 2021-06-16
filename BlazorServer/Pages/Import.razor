@@ -1,0 +1,32 @@
+﻿@page "/import"
+@using DataLibrary
+@using BlazorServer.Models
+@using System.IO;
+@using Microsoft.Extensions.Configuration
+@inject IDatabaseAccess data
+@inject IConfiguration config
+<h3>Import</h3>
+@if(tradeRoutes == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    @foreach(var t in tradeRoutes)
+    {
+        <p>@t.Location</p>
+    }
+}
+
+
+@code {
+    List<ItemRoutes> tradeRoutes;
+    protected override async Task OnInitializedAsync()
+    {
+        Console.WriteLine(Directory.GetCurrentDirectory().ToString());
+        string sql = "select * from itemroutes";
+        tradeRoutes = await data.LoadData<ItemRoutes, dynamic>(sql, new { }, config.GetConnectionString("default"));
+    }
+
+
+}

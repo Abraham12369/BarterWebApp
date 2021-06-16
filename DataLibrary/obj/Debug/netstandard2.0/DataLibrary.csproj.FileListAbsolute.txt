@@ -1,0 +1,9 @@
+D:\storage\SDCS\PersonalProject\DataLibrary\bin\Debug\netstandard2.0\DataLibrary.deps.json
+D:\storage\SDCS\PersonalProject\DataLibrary\bin\Debug\netstandard2.0\DataLibrary.dll
+D:\storage\SDCS\PersonalProject\DataLibrary\bin\Debug\netstandard2.0\DataLibrary.pdb
+D:\storage\SDCS\PersonalProject\DataLibrary\obj\Debug\netstandard2.0\DataLibrary.csprojAssemblyReference.cache
+D:\storage\SDCS\PersonalProject\DataLibrary\obj\Debug\netstandard2.0\DataLibrary.AssemblyInfoInputs.cache
+D:\storage\SDCS\PersonalProject\DataLibrary\obj\Debug\netstandard2.0\DataLibrary.AssemblyInfo.cs
+D:\storage\SDCS\PersonalProject\DataLibrary\obj\Debug\netstandard2.0\DataLibrary.csproj.CoreCompileInputs.cache
+D:\storage\SDCS\PersonalProject\DataLibrary\obj\Debug\netstandard2.0\DataLibrary.dll
+D:\storage\SDCS\PersonalProject\DataLibrary\obj\Debug\netstandard2.0\DataLibrary.pdb
