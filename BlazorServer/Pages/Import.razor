@@ -17,6 +17,8 @@ else
         <p>@t.Location</p>
     }
 }
+<p>@directoryString</p>
+<button class="btn btn-primary" @onclick="ImportFile">Import</button>
 
 
 @code {
@@ -26,6 +28,18 @@ else
         Console.WriteLine(Directory.GetCurrentDirectory().ToString());
         string sql = "select * from itemroutes";
         tradeRoutes = await data.LoadData<ItemRoutes, dynamic>(sql, new { }, config.GetConnectionString("default"));
+        UpdateString();
+    }
+
+    string directoryString;
+    void UpdateString()
+    {
+        directoryString = data.GetDirectory();
+    }
+
+    void ImportFile()
+    {
+        data.ImportAll(config.GetConnectionString("default"));
     }
 
 

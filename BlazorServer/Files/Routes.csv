@@ -866,7 +866,7 @@ Aloe>Golden Sand>Monster Tentacle [Paratama>Tashu],[Level 1],Tashu,Golden Sand,M
 Aloe>Golden Sand>Monster Tentacle [Paratama>Tashu],[Level 2],Ostra,Monster Tentacle,Blue Candle Bundle,12,L,,V,25
 Aloe>Golden Sand>Monster Tentacle [Paratama>Tashu],[Level 3],Daton,Blue Candle Bundle,Marine Knights' Helm,12,L,,V,37
 Aloe>Golden Sand>Monster Tentacle [Paratama>Tashu],[Level 4],Balvege,Marine Knights' Helm,37 Year Old Herbal Wine,12,L,,V,8
-Aloe>Golden Sand>Monster Tentacle [Paratama>Tashu],[Level 5],Naval,37 Year Old Herbal Wine,Crow Coins,12,L,,V,#N/A
+Aloe>Golden Sand>Monster Tentacle [Paratama>Tashu],[Level 5],Naval,37 Year Old Herbal Wine,Crow Coins,12,L,,V,-999
 Lead Ore>Giant Fish Bone>Monster Tentacle [Eveto>Tashu],[Basic Item],Eveto,Lead Ore,Giant Fish Bone,13,A,900,V,9
 Lead Ore>Giant Fish Bone>Monster Tentacle [Eveto>Tashu],[Level 1],Tashu,Giant Fish Bone,Monster Tentacle,13,A,,V,15
 Lead Ore>Giant Fish Bone>Monster Tentacle [Eveto>Tashu],[Level 2],Albresser,Monster Tentacle,Pirates' Supply Box,13,A,,V,38
@@ -1935,7 +1935,7 @@ Essence of Liquor>Golden Sand>Sea Survival Kit [Mariveno>Boa],[Level 5],Pakio,10
 Rough Blue Crystal>Roa Flower Seed Pouch>Monster Tentacle [Ephde Rune>Esfah],[Basic Item],Ephde Rune,Rough Blue Crystal,Roa Flower Seed Pouch,26,I,100,V,14
 Rough Blue Crystal>Roa Flower Seed Pouch>Monster Tentacle [Ephde Rune>Esfah],[Level 1],Esfah,Roa Flower Seed Pouch,Monster Tentacle,26,I,,V,45
 Rough Blue Crystal>Roa Flower Seed Pouch>Monster Tentacle [Ephde Rune>Esfah],[Level 2],Arakil,Monster Tentacle,Rare Herb Pile,26,I,,V,22
-Rough Blue Crystal>Roa Flower Seed Pouch>Monster Tentacle [Ephde Rune>Esfah],[Level 3],Shirna,Rare Herb Pile,Headless Dragon Figurine,26,I,,V,#N/A
+Rough Blue Crystal>Roa Flower Seed Pouch>Monster Tentacle [Ephde Rune>Esfah],[Level 3],Shirna,Rare Herb Pile,Headless Dragon Figurine,26,I,,V,-999
 Rough Blue Crystal>Roa Flower Seed Pouch>Monster Tentacle [Ephde Rune>Esfah],[Level 4],Iliya,Headless Dragon Figurine,Portrait of the Ancient,26,I,,V,4
 Rough Blue Crystal>Roa Flower Seed Pouch>Monster Tentacle [Ephde Rune>Esfah],[Level 5],Crow,Portrait of the Ancient,Crow Coins,26,I,,V,69
 Vinegar>Rakeflower Seed Pouch>Pirate Gold Coin [Paratama>Sokota],[Basic Item],Paratama,Vinegar,Rakeflower Seed Pouch,26,J,1400,V,20

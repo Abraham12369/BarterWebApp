@@ -9,5 +9,10 @@ namespace DataLibrary
     {
         Task<List<T>> LoadData<T, U>(string sql, U parameters, string connectionString);
         Task SaveData<T>(string sql, T parameters, string connectionString);
+
+        Task ImportData(string sql, SingleRoute route, string connectionString);
+
+        void ImportAll(string connectionString);
+        string  GetDirectory(); 
     }
 }

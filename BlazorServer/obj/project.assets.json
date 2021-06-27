@@ -955,19 +955,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\JackDesktop\\.nuget\\packages\\": {}
+    "C:\\Users\\Jack-Thinkpad\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\storage\\SDCS\\PersonalProject\\BlazorServer\\BlazorServer.csproj",
+      "projectUniqueName": "C:\\Users\\Jack-Thinkpad\\Desktop\\SDCS\\BarterApp\\BlazorServer\\BlazorServer.csproj",
       "projectName": "BlazorServer",
-      "projectPath": "D:\\storage\\SDCS\\PersonalProject\\BlazorServer\\BlazorServer.csproj",
-      "packagesPath": "C:\\Users\\JackDesktop\\.nuget\\packages\\",
-      "outputPath": "D:\\storage\\SDCS\\PersonalProject\\BlazorServer\\obj\\",
+      "projectPath": "C:\\Users\\Jack-Thinkpad\\Desktop\\SDCS\\BarterApp\\BlazorServer\\BlazorServer.csproj",
+      "packagesPath": "C:\\Users\\Jack-Thinkpad\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Jack-Thinkpad\\Desktop\\SDCS\\BarterApp\\BlazorServer\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\JackDesktop\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Jack-Thinkpad\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -981,8 +986,8 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "D:\\storage\\SDCS\\PersonalProject\\DataLibrary\\DataLibrary.csproj": {
-              "projectPath": "D:\\storage\\SDCS\\PersonalProject\\DataLibrary\\DataLibrary.csproj"
+            "C:\\Users\\Jack-Thinkpad\\Desktop\\SDCS\\BarterApp\\DataLibrary\\DataLibrary.csproj": {
+              "projectPath": "C:\\Users\\Jack-Thinkpad\\Desktop\\SDCS\\BarterApp\\DataLibrary\\DataLibrary.csproj"
             }
           }
         }
@@ -1014,7 +1019,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
       }
     }
   }

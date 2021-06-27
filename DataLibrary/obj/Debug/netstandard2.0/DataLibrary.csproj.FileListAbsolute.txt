@@ -7,3 +7,12 @@ D:\storage\SDCS\PersonalProject\DataLibrary\obj\Debug\netstandard2.0\DataLibrary
 D:\storage\SDCS\PersonalProject\DataLibrary\obj\Debug\netstandard2.0\DataLibrary.csproj.CoreCompileInputs.cache
 D:\storage\SDCS\PersonalProject\DataLibrary\obj\Debug\netstandard2.0\DataLibrary.dll
 D:\storage\SDCS\PersonalProject\DataLibrary\obj\Debug\netstandard2.0\DataLibrary.pdb
+C:\Users\Jack-Thinkpad\Desktop\SDCS\BarterApp\DataLibrary\bin\Debug\netstandard2.0\DataLibrary.deps.json
+C:\Users\Jack-Thinkpad\Desktop\SDCS\BarterApp\DataLibrary\bin\Debug\netstandard2.0\DataLibrary.dll
+C:\Users\Jack-Thinkpad\Desktop\SDCS\BarterApp\DataLibrary\bin\Debug\netstandard2.0\DataLibrary.pdb
+C:\Users\Jack-Thinkpad\Desktop\SDCS\BarterApp\DataLibrary\obj\Debug\netstandard2.0\DataLibrary.csproj.AssemblyReference.cache
+C:\Users\Jack-Thinkpad\Desktop\SDCS\BarterApp\DataLibrary\obj\Debug\netstandard2.0\DataLibrary.AssemblyInfoInputs.cache
+C:\Users\Jack-Thinkpad\Desktop\SDCS\BarterApp\DataLibrary\obj\Debug\netstandard2.0\DataLibrary.AssemblyInfo.cs
+C:\Users\Jack-Thinkpad\Desktop\SDCS\BarterApp\DataLibrary\obj\Debug\netstandard2.0\DataLibrary.csproj.CoreCompileInputs.cache
+C:\Users\Jack-Thinkpad\Desktop\SDCS\BarterApp\DataLibrary\obj\Debug\netstandard2.0\DataLibrary.dll
+C:\Users\Jack-Thinkpad\Desktop\SDCS\BarterApp\DataLibrary\obj\Debug\netstandard2.0\DataLibrary.pdb
