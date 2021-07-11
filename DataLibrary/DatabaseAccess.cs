@@ -11,7 +11,7 @@ using System.Diagnostics;
 
 namespace DataLibrary
 {
-    public class DatabaseAccess:IDatabaseAccess
+    public class DatabaseAccess : IDatabaseAccess
     {
         /// <summary>
         /// generic data query with parameters
@@ -22,9 +22,9 @@ namespace DataLibrary
         /// <param name="parameters">sql parameters</param>
         /// <param name="connectionString"></param>
         /// <returns>async list of queried results</returns>
-        public async Task<List<T>> LoadData<T,U>(string sql, U parameters, string connectionString)
+        public async Task<List<T>> LoadData<T, U>(string sql, U parameters, string connectionString)
         {
-            using(IDbConnection conn = new MySqlConnection(connectionString))
+            using (IDbConnection conn = new MySqlConnection(connectionString))
             {
                 var rows = await conn.QueryAsync<T>(sql, parameters);
                 return rows.ToList();
@@ -32,7 +32,7 @@ namespace DataLibrary
         }
         public Task SaveData<T>(string sql, T parameters, string connectionString)
         {
-            using(IDbConnection conn = new MySqlConnection(connectionString))
+            using (IDbConnection conn = new MySqlConnection(connectionString))
             {
                 return conn.ExecuteAsync(sql, parameters);
             }
@@ -48,50 +48,68 @@ namespace DataLibrary
             try
             {
                 string fileString = GetDirectory() + "/Files/Routes.csv";
-                string[] allLines = File.ReadAllLines(fileString);
-                allLines = allLines.Skip(1).ToArray();
-                List<SingleRoute> routes = new List<SingleRoute>();
-                int count = 0;
-                using (IDbConnection conn = new MySqlConnection(connectionString))
+                string[] input = File.ReadAllLines(fileString);
+                List<Trade> routes = new List<Trade>();
+                Trade currRoute;
+                Debug.WriteLine("Input length: " + input.Length);
+                for (int i = 1; i < input.Length; i++)
                 {
-                    foreach (string s in allLines)
+                    string[] startLine = input[i].Split(',');
+                    //Debug.WriteLine(i);
+                    currRoute = new Trade
                     {
-                        Debug.WriteLine(s);
-                        routes.Add(RouteBuilder(s));
+                        ID = startLine[5],
+                        subPaste = startLine[6],
+                        location = startLine[2],
+                        give = startLine[3],
+                        receive = startLine[4],
+                        tier = GetTier(startLine[1]).ToString(),
+                        quantity = GetAmount(startLine[7]).ToString()
+                    };
+                    routes.Add(currRoute);
+
+                    //Debug.WriteLine(i.ToString());
+                }
+                int count = 0;
+                Debug.WriteLine("Routes count: " + routes.Count);
+                Debug.WriteLine(connectionString);
+                using (MySqlConnection conn = new MySqlConnection(connectionString))
+                {
+                    conn.Open();
+                    Debug.WriteLine(conn.State);
+                    MySqlCommand cmd = new MySqlCommand();
+                    cmd.CommandText = "INSERT INTO itemroutes(id,subpaste,location,give,receive,tier,quantity) VALUES(@id,@subpaste,@location,@give,@receive,@tier,@quantity)";
+                    cmd.Connection = conn;
+                    foreach (Trade s in routes)
+                    {
+                        Debug.WriteLine(s.OutputString());
                         count++;
+                        cmd.Parameters.AddWithValue("@id", s.ID);
+                        cmd.Parameters.AddWithValue("@subpaste", s.subPaste);
+                        cmd.Parameters.AddWithValue("@location", s.location);
+                        cmd.Parameters.AddWithValue("@give", s.give);
+                        cmd.Parameters.AddWithValue("@receive", s.receive);
+                        cmd.Parameters.AddWithValue("@tier", s.tier);
+                        cmd.Parameters.AddWithValue("@quantity", s.quantity);
+                        Debug.WriteLine("got here");
+                        cmd.ExecuteNonQuery();
+                        cmd.Parameters.Clear();
                     }
                 }
                 Debug.WriteLine(count);
             }
             catch (Exception err)
             {
-                Console.WriteLine(err.Message);
+                Debug.WriteLine(err.Message);
+                Debug.WriteLine(err.StackTrace);
             }
         }
 
-        SingleRoute RouteBuilder(string s)
-        {
-            string[] postSplit = s.Split(',');
-            return new SingleRoute
-            {
-                Chain = postSplit[0],
-                Tier = GetTier(postSplit[1]),
-                Location = postSplit[2],
-                ItemActual = postSplit[3],
-                ItemTo = postSplit[4],
-                ChainID = double.Parse(postSplit[5]),
-                SubPaste = postSplit[6],
-                Amount = GetAmount(postSplit[7]),
-                Verified = GetVerified(postSplit[8]),
-                LocationIndex = Int32.Parse(postSplit[9])
-            };
-
-        }
 
         int GetTier(string s)
         {
             int value;
-            if(int.TryParse(s.Substring(s.Length-2,1),out value))
+            if (int.TryParse(s.Substring(s.Length - 2, 1), out value))
             {
                 return value;
             }
@@ -104,7 +122,7 @@ namespace DataLibrary
         int GetAmount(string s)
         {
             int value;
-            if(int.TryParse(s, out value))
+            if (int.TryParse(s, out value))
             {
                 return value;
             }
@@ -126,7 +144,7 @@ namespace DataLibrary
             }
         }
 
-        public Task ImportData(string sql,SingleRoute route , string connectionString)
+        public Task ImportData(string sql, SingleRoute route, string connectionString)
         {
             string fileString = GetDirectory() + "/Files/Routes.csv";
             string[] allLines = File.ReadAllLines(fileString);
@@ -134,7 +152,7 @@ namespace DataLibrary
             {
 
             }
-            using(IDbConnection conn = new MySqlConnection(connectionString))
+            using (IDbConnection conn = new MySqlConnection(connectionString))
             {
                 return null;
             }
