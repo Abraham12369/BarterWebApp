@@ -132,3 +132,5 @@ C:\Users\Jack-Thinkpad\Desktop\SDCS\BarterApp\BlazorServer\obj\Debug\netcoreapp3
 C:\Users\Jack-Thinkpad\Desktop\SDCS\BarterApp\BlazorServer\obj\Debug\netcoreapp3.1\BlazorServer.dll
 C:\Users\Jack-Thinkpad\Desktop\SDCS\BarterApp\BlazorServer\obj\Debug\netcoreapp3.1\BlazorServer.pdb
 C:\Users\Jack-Thinkpad\Desktop\SDCS\BarterApp\BlazorServer\obj\Debug\netcoreapp3.1\BlazorServer.genruntimeconfig.cache
+D:\storage\SDCS\PersonalProject\BlazorServer\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Query.razor.g.cs
+D:\storage\SDCS\PersonalProject\BlazorServer\obj\Debug\netcoreapp3.1\Razor\Pages\Query.razor.g.cs

@@ -1,0 +1,72 @@
+﻿@page "/query"
+@using DataLibrary
+@using BlazorServer.Models
+@using BlazorServer.Data
+@using Microsoft.Extensions.Configuration
+@inject IDatabaseAccess data
+@inject IConfiguration config
+<h3>Query</h3>
+<EditForm Model="@newInput" OnValidSubmit="Search">
+    <InputText @bind-Value="newInput.baseResource" />
+    <InputText @bind-Value="newInput.t1Resource" />
+    <InputText @bind-Value="newInput.t2Resource" />
+    <InputText @bind-Value="newInput.location1" />
+    <InputText @bind-Value="newInput.location2" />
+    <button type="submit">Search</button>
+</EditForm>
+
+<ul>
+    @foreach (var route in queriedRoutes)
+    {
+        <li>
+            @route.Chain
+        </li>
+    }
+
+</ul>
+
+<h3>Inputs</h3>
+<ul>
+    <li>Base Resource</li>
+    <li>
+        @newInput.baseResource
+    </li>
+    <li>T1 Resource</li>
+    <li>
+        @newInput.t1Resource
+    </li>
+    <li>T2 Resource</li>
+    <li>
+        @newInput.t2Resource
+    </li>
+    <li>T1 Location</li>
+    <li>
+        @newInput.location1
+    </li>
+    <li>T2 Location</li>
+    <li>
+        @newInput.location2
+    </li>
+    <li>Command</li>
+    <li>
+        @sqlCommand
+    </li>
+</ul>
+
+
+
+@code {
+    private List<QueryInputModel> initialInputs = new List<QueryInputModel>();
+    public QueryInputModel newInput = new QueryInputModel();
+    List<TradeRoute> queriedRoutes = new List<TradeRoute>();
+    public string sqlCommand;
+    private async void Search()
+    {
+        Console.WriteLine("searching");
+        string sql = "SELECT * from itemroutes where Location0 LIKE '%" + newInput.location1 + "%' AND Location1 LIKE '%" + newInput.location2 +
+            "%' AND Item0 LIKE '%" + newInput.baseResource + "%' AND Item1 LIKE '%" + newInput.t1Resource + "%' AND Item2 LIKE '%" + newInput.t2Resource + "%'";
+        sqlCommand = sql;
+        //queriedRoutes = await data.LoadData<TradeRoute, dynamic>(sql, new { }, config.GetConnectionString("default"));
+    }
+
+}
