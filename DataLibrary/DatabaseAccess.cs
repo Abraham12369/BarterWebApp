@@ -45,31 +45,66 @@ namespace DataLibrary
         /// <returns></returns>
         public void ImportAll(string connectionString)
         {
+            Debug.WriteLine("this is called");
             try
             {
                 string fileString = GetDirectory() + "/Files/Routes.csv";
-                string[] input = File.ReadAllLines(fileString);
-                List<Trade> routes = new List<Trade>();
-                Trade currRoute;
-                Debug.WriteLine("Input length: " + input.Length);
-                for (int i = 1; i < input.Length; i++)
+                string[] fullinput = File.ReadAllLines(fileString);
+                int routeCount = 37;
+                List<TradeRoute> routes = new List<TradeRoute>();
+                for (int routeIndex = 0; routeIndex < routeCount; routeIndex++)
                 {
-                    string[] startLine = input[i].Split(',');
-                    //Debug.WriteLine(i);
-                    currRoute = new Trade
-                    {
-                        ID = startLine[5],
-                        subPaste = startLine[6],
-                        location = startLine[2],
-                        give = startLine[3],
-                        receive = startLine[4],
-                        tier = GetTier(startLine[1]).ToString(),
-                        quantity = GetAmount(startLine[7]).ToString()
-                    };
-                    routes.Add(currRoute);
 
-                    //Debug.WriteLine(i.ToString());
+                    for (int subPasteIndex = 0; subPasteIndex < 12; subPasteIndex++)
+                    {
+                        int startIndex = routeIndex * 72 + subPasteIndex * 6;
+                        //string[] input = fullinput[startIndex..(startIndex + 6)];
+                        string[] input = fullinput.Skip(startIndex).Take(6).ToArray();
+                        string[] line0 = input[0].Split(',');
+                        string[] line1 = input[1].Split(',');
+                        string[] line2 = input[2].Split(',');
+                        string[] line3 = input[3].Split(',');
+                        string[] line4 = input[4].Split(',');
+                        string[] line5 = input[5].Split(',');
+                        //Debug.WriteLine("elements: " + fullinput.Length);
+                        //Debug.WriteLine(input[0]);
+                        //Debug.WriteLine(input[1]);
+                        //Debug.WriteLine(input[2]);
+                        //Debug.WriteLine(input[3]);
+                        //Debug.WriteLine(input[4]);
+                        //Debug.WriteLine(input[5]);
+                        //Debug.WriteLine("************");
+                        TradeRoute currRoute = new TradeRoute
+                        {
+                            Chain = line0[0] + line0[5],
+                            ChainID = line0[5],
+                            SubPaste = line0[6],
+                            Location0 = line0[2],
+                            Location1 = line1[2],
+                            Location2 = line2[2],
+                            Location3 = line3[2],
+                            Location4 = line4[2],
+                            Location5 = line5[2],
+                            Item0 = line0[3],
+                            Item1 = line1[3],
+                            Item2 = line2[3],
+                            Item3 = line3[3],
+                            Item4 = line4[3],
+                            Item5 = line5[3],
+                            Item6 = line5[4],
+                            Amount = line0[7]
+                        };
+                        //Debug.WriteLine(startIndex);
+                        //Debug.WriteLine(currRoute.OutputString());
+                        routes.Add(currRoute);
+
+                    }
+
                 }
+
+
+                //Debug.WriteLine(i.ToString());
+
                 int count = 0;
                 Debug.WriteLine("Routes count: " + routes.Count);
                 Debug.WriteLine(connectionString);
@@ -78,19 +113,29 @@ namespace DataLibrary
                     conn.Open();
                     Debug.WriteLine(conn.State);
                     MySqlCommand cmd = new MySqlCommand();
-                    cmd.CommandText = "INSERT INTO itemroutes(id,subpaste,location,give,receive,tier,quantity) VALUES(@id,@subpaste,@location,@give,@receive,@tier,@quantity)";
+                    cmd.CommandText = "INSERT INTO itemroutes(chain,location0,location1,location2,location3,location4,location5,item0,item1,item2,item3,item4,item5,item6,chainid,subpaste,amount) VALUES(@chain,@location0,@location1,@location2,@location3,@location4,@location5,@Item0,@Item1,@Item2,@Item3,@Item4,@Item5,@Item6,@id,@subpaste,@quantity)";
                     cmd.Connection = conn;
-                    foreach (Trade s in routes)
+                    foreach (var s in routes)
                     {
-                        Debug.WriteLine(s.OutputString());
+                        //Debug.WriteLine(s.OutputString());
                         count++;
-                        cmd.Parameters.AddWithValue("@id", s.ID);
-                        cmd.Parameters.AddWithValue("@subpaste", s.subPaste);
-                        cmd.Parameters.AddWithValue("@location", s.location);
-                        cmd.Parameters.AddWithValue("@give", s.give);
-                        cmd.Parameters.AddWithValue("@receive", s.receive);
-                        cmd.Parameters.AddWithValue("@tier", s.tier);
-                        cmd.Parameters.AddWithValue("@quantity", s.quantity);
+                        cmd.Parameters.AddWithValue("@chain", s.Chain);
+                        cmd.Parameters.AddWithValue("@id", s.ChainID);
+                        cmd.Parameters.AddWithValue("@subpaste", s.SubPaste);
+                        cmd.Parameters.AddWithValue("@location0", s.Location0);
+                        cmd.Parameters.AddWithValue("@location1", s.Location1);
+                        cmd.Parameters.AddWithValue("@location2", s.Location2);
+                        cmd.Parameters.AddWithValue("@location3", s.Location3);
+                        cmd.Parameters.AddWithValue("@location4", s.Location4);
+                        cmd.Parameters.AddWithValue("@location5", s.Location5);
+                        cmd.Parameters.AddWithValue("@Item0", s.Item0);
+                        cmd.Parameters.AddWithValue("@Item1", s.Item1);
+                        cmd.Parameters.AddWithValue("@Item2", s.Item2);
+                        cmd.Parameters.AddWithValue("@Item3", s.Item3);
+                        cmd.Parameters.AddWithValue("@Item4", s.Item4);
+                        cmd.Parameters.AddWithValue("@Item5", s.Item5);
+                        cmd.Parameters.AddWithValue("@Item6", s.Item6);
+                        cmd.Parameters.AddWithValue("@quantity", s.Amount);
                         Debug.WriteLine("got here");
                         cmd.ExecuteNonQuery();
                         cmd.Parameters.Clear();
@@ -100,11 +145,10 @@ namespace DataLibrary
             }
             catch (Exception err)
             {
-                Debug.WriteLine(err.Message);
-                Debug.WriteLine(err.StackTrace);
+                Console.WriteLine(err.Message);
             }
-        }
 
+        }
 
         int GetTier(string s)
         {
@@ -164,5 +208,38 @@ namespace DataLibrary
         {
             return System.IO.Directory.GetCurrentDirectory();
         }
+
+        public async Task<string[]> GetUniqueValues(string value, string connectionString)
+        {
+
+            List<string> returnList = new List<string>();
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandText = "SELECT DISTINCT(" + value + ") FROM itemroutes";
+                cmd.Connection = conn;
+                var reader = await cmd.ExecuteReaderAsync();
+                try
+                {
+                    while (reader.Read())
+                    {
+                        for (int i = 0; i < reader.FieldCount; i++)
+                        {
+                            Debug.WriteLine(reader[i].ToString());
+                            returnList.Add(reader[i].ToString());
+                        }
+                    }
+                }
+                catch (Exception err)
+                {
+                    Console.WriteLine(err);
+                }
+            }
+            return returnList.ToArray();
+        }
+
+        //public async Task<>{
+        //    }
     }
 }

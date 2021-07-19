@@ -7,11 +7,16 @@
 @inject IConfiguration config
 <h3>Query</h3>
 <EditForm Model="@newInput" OnValidSubmit="Search">
-    <InputText @bind-Value="newInput.baseResource" />
+    <MatAutocompleteList Items="@t0" ShowClearButton="true" TItem="string" Label="Base Resource" @bind-Value="newInput.baseResource"/>
+    <MatAutocompleteList Items="@t1" ShowClearButton="true" TItem="string" Label="T1 Resource" @bind-Value="newInput.t1Resource"/>
+    <MatAutocompleteList Items="@t2" ShowClearButton="true" TItem="string" Label="T2 Resource" @bind-Value="newInput.t2Resource"/>
+    <MatAutocompleteList Items="@loc1" ShowClearButton="true" TItem="string" Label="Location 1" @bind-Value="newInput.location1"/>
+    <MatAutocompleteList Items="@loc2" ShowClearButton="true" TItem="string" Label="Location 2" @bind-Value="newInput.location2"/>
+    @*<InputText @bind-Value="newInput.baseResource" />
     <InputText @bind-Value="newInput.t1Resource" />
     <InputText @bind-Value="newInput.t2Resource" />
     <InputText @bind-Value="newInput.location1" />
-    <InputText @bind-Value="newInput.location2" />
+    <InputText @bind-Value="newInput.location2" />*@
     <button type="submit">Search</button>
 </EditForm>
 
@@ -22,36 +27,35 @@
             @route.Chain
         </li>
     }
-
 </ul>
 
 <h3>Inputs</h3>
-<ul>
-    <li>Base Resource</li>
-    <li>
-        @newInput.baseResource
-    </li>
-    <li>T1 Resource</li>
-    <li>
-        @newInput.t1Resource
-    </li>
-    <li>T2 Resource</li>
-    <li>
-        @newInput.t2Resource
-    </li>
-    <li>T1 Location</li>
-    <li>
-        @newInput.location1
-    </li>
-    <li>T2 Location</li>
-    <li>
-        @newInput.location2
-    </li>
-    <li>Command</li>
-    <li>
-        @sqlCommand
-    </li>
-</ul>
+
+<p>Base Resource</p>
+<p>
+    @newInput.baseResource
+</p>
+<p>T1 Resource</p>
+<p>
+    @newInput.t1Resource
+</p>
+<p>T2 Resource</p>
+<p>
+    @newInput.t2Resource
+</p>
+<p>T1 Location</p>
+<p>
+    @newInput.location1
+</p>
+<p>T2 Location</p>
+<p>
+    @newInput.location2
+</p>
+<p>Command</p>
+<p>
+    @sqlCommand
+</p>
+
 
 
 
@@ -60,6 +64,22 @@
     public QueryInputModel newInput = new QueryInputModel();
     List<TradeRoute> queriedRoutes = new List<TradeRoute>();
     public string sqlCommand;
+    string[] t0;
+    string[] t1;
+    string[] t2;
+    string[] loc1;
+    string[] loc2;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        t0 = await data.GetUniqueValues("item0", config.GetConnectionString("default"));
+        t1 = await data.GetUniqueValues("item1", config.GetConnectionString("default"));
+        t2 = await data.GetUniqueValues("item2", config.GetConnectionString("default"));
+        loc1 = await data.GetUniqueValues("location0", config.GetConnectionString("default"));
+        loc2 = await data.GetUniqueValues("location1", config.GetConnectionString("default"));
+    }
+
     private async void Search()
     {
         Console.WriteLine("searching");

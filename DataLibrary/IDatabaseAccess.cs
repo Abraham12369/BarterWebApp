@@ -12,6 +12,8 @@ namespace DataLibrary
 
         Task ImportData(string sql, SingleRoute route, string connectionString);
 
+        Task<string[]> GetUniqueValues (string value, string connectionString);
+
         void ImportAll(string connectionString);
         string  GetDirectory(); 
     }

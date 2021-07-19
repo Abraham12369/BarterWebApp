@@ -76,6 +76,13 @@ using BlazorServer.Shared;
 #line hidden
 #nullable disable
 #nullable restore
+#line 10 "D:\storage\SDCS\PersonalProject\BlazorServer\_Imports.razor"
+using MatBlazor;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
 #line 2 "D:\storage\SDCS\PersonalProject\BlazorServer\Pages\Query.razor"
 using DataLibrary;
 
@@ -112,12 +119,28 @@ using Microsoft.Extensions.Configuration;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 58 "D:\storage\SDCS\PersonalProject\BlazorServer\Pages\Query.razor"
+#line 62 "D:\storage\SDCS\PersonalProject\BlazorServer\Pages\Query.razor"
        
     private List<QueryInputModel> initialInputs = new List<QueryInputModel>();
     public QueryInputModel newInput = new QueryInputModel();
     List<TradeRoute> queriedRoutes = new List<TradeRoute>();
     public string sqlCommand;
+    string[] t0;
+    string[] t1;
+    string[] t2;
+    string[] loc1;
+    string[] loc2;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        t0 = await data.GetUniqueValues("item0", config.GetConnectionString("default"));
+        t1 = await data.GetUniqueValues("item1", config.GetConnectionString("default"));
+        t2 = await data.GetUniqueValues("item2", config.GetConnectionString("default"));
+        loc1 = await data.GetUniqueValues("location0", config.GetConnectionString("default"));
+        loc2 = await data.GetUniqueValues("location1", config.GetConnectionString("default"));
+    }
+
     private async void Search()
     {
         Console.WriteLine("searching");
