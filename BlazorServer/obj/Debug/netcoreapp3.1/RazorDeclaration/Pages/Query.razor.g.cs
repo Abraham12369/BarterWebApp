@@ -119,17 +119,20 @@ using Microsoft.Extensions.Configuration;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 62 "D:\storage\SDCS\PersonalProject\BlazorServer\Pages\Query.razor"
+#line 69 "D:\storage\SDCS\PersonalProject\BlazorServer\Pages\Query.razor"
        
     private List<QueryInputModel> initialInputs = new List<QueryInputModel>();
     public QueryInputModel newInput = new QueryInputModel();
     List<TradeRoute> queriedRoutes = new List<TradeRoute>();
+    List<Tuple<TradeRoute, float>> distancePair=new List<Tuple<TradeRoute, float>>();
     public string sqlCommand;
     string[] t0;
     string[] t1;
     string[] t2;
     string[] loc1;
     string[] loc2;
+
+
 
 
     protected override async Task OnInitializedAsync()
@@ -144,9 +147,16 @@ using Microsoft.Extensions.Configuration;
     private async void Search()
     {
         Console.WriteLine("searching");
-        string sql = "SELECT * from itemroutes where Location0 LIKE '%" + newInput.location1 + "%' AND Location1 LIKE '%" + newInput.location2 +
+        string sql = "SELECT chainID from itemroutes where Location0 LIKE '%" + newInput.location1 + "%' AND Location1 LIKE '%" + newInput.location2 +
             "%' AND Item0 LIKE '%" + newInput.baseResource + "%' AND Item1 LIKE '%" + newInput.t1Resource + "%' AND Item2 LIKE '%" + newInput.t2Resource + "%'";
-        sqlCommand = sql;
+        sqlCommand = await data.GetChainID(sql, config.GetConnectionString("default"));
+        queriedRoutes=await data.LoadChain(sqlCommand,config.GetConnectionString("default"));
+        Console.WriteLine(queriedRoutes.Count);
+        foreach(TradeRoute subroute in queriedRoutes)
+        {
+            var adder=await service.GetTotalDistance(subroute, config.GetConnectionString("locations"));
+            distancePair.Add(adder);
+        }
         //queriedRoutes = await data.LoadData<TradeRoute, dynamic>(sql, new { }, config.GetConnectionString("default"));
     }
 
@@ -154,6 +164,7 @@ using Microsoft.Extensions.Configuration;
 #line default
 #line hidden
 #nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IServices service { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IConfiguration config { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IDatabaseAccess data { get; set; }
     }

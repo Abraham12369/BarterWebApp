@@ -24,4 +24,11 @@ namespace DataLibrary
         public string SubPaste;
         public string Amount;
     }
+
+    public class LocationCoordiantes
+    {
+        public string Location;
+        public string locX;
+        public string locY;
+    }
 }

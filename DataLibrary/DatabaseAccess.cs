@@ -8,6 +8,7 @@ using Dapper;
 using System.Threading.Tasks;
 using System.IO;
 using System.Diagnostics;
+using System.Numerics;
 
 namespace DataLibrary
 {
@@ -239,7 +240,67 @@ namespace DataLibrary
             return returnList.ToArray();
         }
 
-        //public async Task<>{
-        //    }
+        public async Task<string> GetChainID(string sql, string connectionString)
+        {
+            string chainID="";
+            using(MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandText = sql;
+                cmd.Connection = conn;
+                var reader = await cmd.ExecuteReaderAsync();
+                try
+                {
+                    while (reader.Read())
+                    {
+                        chainID = reader[0].ToString();
+                    }
+                }
+                catch(Exception err)
+                {
+                    Console.WriteLine(err);
+                }
+            }
+            return chainID;
+        }
+
+        public async Task<List<TradeRoute>> LoadChain(string chainID, string connectionString)
+        {
+            List<TradeRoute> returnList = new List<TradeRoute>();
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandText = "SELECT DISTINCT * FROM itemroutes where chainid like " + chainID;
+                cmd.Connection = conn;
+                //var reader = await cmd.ExecuteReaderAsync();
+                returnList = conn.Query<TradeRoute>(cmd.CommandText).ToList();
+                returnList.ForEach(TradeRoute => Console.WriteLine(TradeRoute));
+                return returnList;
+            }
+        }
+
+        public async Task<Vector2> GetCoord(string location,string connectionString)
+        {
+            Debug.WriteLine("geting location: " + location);
+            using(MySqlConnection conn=new MySqlConnection(connectionString))
+            {
+                conn.Open();
+                var returnvar = await conn.QueryAsync<LocationCoordiantes>("SELECT * from coordinates where location like '%"+location+"%'").ConfigureAwait(false);
+                Console.WriteLine(location +"has "+returnvar.Count()+"matches");
+                if (returnvar.Count() > 0)
+                {
+                    //Console.WriteLine(returnvar.First().);
+                    Vector2 returnVec = new Vector2 { X = float.Parse(returnvar.First().locX), Y = float.Parse(returnvar.First().locY) };
+                    Console.WriteLine("returning: \t" + location + returnVec.X + "\t" + returnVec.Y);
+                    return returnVec;
+                }
+                else
+                {
+                    return new Vector2 { X = 0, Y = 0 };
+                }
+            }
+        }
     }
 }

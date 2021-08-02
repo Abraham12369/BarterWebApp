@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using System.Numerics;
 
 namespace DataLibrary
 {
@@ -15,6 +16,12 @@ namespace DataLibrary
         Task<string[]> GetUniqueValues (string value, string connectionString);
 
         void ImportAll(string connectionString);
-        string  GetDirectory(); 
+        string  GetDirectory();
+
+        Task<string> GetChainID(string sql, string connectionString);
+
+        Task<List<TradeRoute>> LoadChain(string chainID, string connectionString);
+
+        Task<Vector2> GetCoord(string location,string connectionString);
     }
 }

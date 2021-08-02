@@ -32,6 +32,7 @@ namespace BlazorServer
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
             services.AddSingleton<IDatabaseAccess, DatabaseAccess>();
+            services.AddSingleton<IServices, Services>();
             services.AddMatBlazor();
         }
 
